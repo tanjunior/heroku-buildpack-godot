@@ -12,6 +12,20 @@ function download_godot_headless() {
   fi
 }
 
+function download_godot_server() {
+  GODOT_SERVER_URL=https://downloads.tuxfamily.org/godotengine/3.2.1/Godot_v3.2.1-stable_linux_server.64.zip
+
+  if [ ! -f $CACHE_DIR/godot_server.64 ]; then
+    output_section "Downloading Godot Server Executable..."
+    curl -s $GODOT_SERVER_URL -o godot-server.zip || exit 1
+    unzip -o godot-server.zip
+    cp Godot_v3.2.1-stable_linux_server.64 $CACHE_DIR/godot_server.64
+    touch "$CACHE_DIR/._sc_"
+  else
+    output_section "Using cached Godot Server executable"
+  fi
+}
+
 function download_godot_templates() {
   GODOT_TEMPLATES_URL=https://downloads.tuxfamily.org/godotengine/3.2.1/Godot_v3.2.1-stable_export_templates.tpz
   TEMPLATES_DEST="$CACHE_DIR/editor_data/templates/3.2.1.stable"
@@ -35,5 +49,9 @@ function export_godot_project() {
   output_line "Target: '$BUILD_DIR/dist/index.html'"
 
   mkdir -p $OUTPUT_DEST
-  $CACHE_DIR/godot_headless.64 --path "$BUILD_DIR" --export-debug HTML5 "$OUTPUT_DEST/index.html" || exit 1
+  $CACHE_DIR/godot_headless.64 --path "$BUILD_DIR" --export-debug "pck" "$OUTPUT_DEST/game_data.pck" || exit 1
+}
+
+function run_server() {
+  $CACHE_DIR/godot_server.64 --main-pack "$OUTPUT_DEST/game_data.pck" || exit 1
 }
