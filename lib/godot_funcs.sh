@@ -37,6 +37,8 @@ function download_godot_templates() {
     mkdir -p $TEMPLATES_DEST
     cp templates/webassembly_debug.zip $TEMPLATES_DEST
     cp templates/webassembly_release.zip $TEMPLATES_DEST
+    cp templates//linux_x11_64_debug $TEMPLATES_DEST
+    cp templates//linux_x11_64_release $TEMPLATES_DEST
   else
     output_section "Using cached Godot HTML5 Templates"
   fi
