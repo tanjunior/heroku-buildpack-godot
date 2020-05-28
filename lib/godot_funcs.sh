@@ -53,7 +53,3 @@ function export_godot_project() {
   mkdir -p $OUTPUT_DEST
   $CACHE_DIR/godot_headless.64 --export-debug "Linux/X11" --path "$BUILD_DIR"  "$OUTPUT_DEST/game_data.pck" || exit 1
 }
-
-function run_server() {
-  $CACHE_DIR/godot_server.64 --main-pack "$OUTPUT_DEST/game_data.pck" || exit 1
-}

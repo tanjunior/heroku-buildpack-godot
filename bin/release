@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-
+#web: cd dist/ && python -m SimpleHTTPServer \$PORT
 cat << EOF
 ---
 default_process_types:
-  web: cd dist/ && python -m SimpleHTTPServer \$PORT
+  web: cd $CACHE_DIR/ && godot_server.64 --main-pack "$OUTPUT_DEST/game_data.pck"
 EOF
+  

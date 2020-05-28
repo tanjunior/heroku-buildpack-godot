@@ -12,4 +12,3 @@ download_godot_server
 download_godot_templates
 
 export_godot_project
-run_server
